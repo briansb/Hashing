@@ -7,9 +7,10 @@
 
 #include "input_output.hh"
 
-
 int main() {
 
+    //  Need to do a struct, so we can reference like
+    //     block[2].word[3], or something like it
     
     word blocks[100][WORDS_PER_BLOCK];      // This holds the message
                                             // Each block holds 16 32-bit words, or 64 characters
