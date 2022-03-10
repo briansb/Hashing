@@ -1,1 +1,4 @@
+#define LETTERS_PER_WORD 4
+
 #define WORDS_PER_BLOCK 16
+

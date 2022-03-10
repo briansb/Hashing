@@ -13,18 +13,16 @@ int main() {
     
     word blocks[100][WORDS_PER_BLOCK];      // This holds the message
                                             // Each block holds 16 32-bit words, or 64 characters
+    // Initialize blocks[][]
     int number_of_blocks = 0;
     std::string message = "Brian";
     message_to_blocks(message, blocks, number_of_blocks);
-    for (int i = 0; i < number_of_blocks; i++) {
-        for (int j = 0; j < 5; j++) {
-            std::cout << blocks[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
     
+    std::cout << blocks[0][0] << std::endl;
+    std::cout << blocks[0][1] << std::endl;
 
-    std::cout << std::endl << "---------------" << std::endl;
+
+    std::cout << std::endl << "-----------------------------------------------------------------------" << std::endl;
     std::bitset<8> letters[5];
     letters[0] = 66;
     letters[1] = 114;
