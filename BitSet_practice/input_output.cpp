@@ -5,7 +5,7 @@ void message_to_blocks(std::string message, word blocks[][WORDS_PER_BLOCK], int 
 
     int word_index = 0;
     int character_counter = 1;
-    int shift_amount = (LETTERS_PER_WORD -1)  * 8;
+    int shift_amount = (LETTERS_PER_WORD - 1)  * 8;
     word helper;
     for (size_t i = 0; i < message.length(); i++) {
 
