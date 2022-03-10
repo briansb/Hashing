@@ -5,11 +5,26 @@
 //  https://www.educba.com/c-plus-plus-bitset/
 //  https://docs.microsoft.com/en-us/cpp/standard-library/bitset-class?view=msvc-170
 
-#include <iostream>
-#include <bitset>
+#include "input_output.hh"
+
 
 int main() {
 
+    
+    word blocks[100][WORDS_PER_BLOCK];      // This holds the message
+                                            // Each block holds 16 32-bit words, or 64 characters
+    int number_of_blocks = 0;
+    std::string message = "Brian";
+    message_to_blocks(message, blocks, number_of_blocks);
+    for (int i = 0; i < number_of_blocks; i++) {
+        for (int j = 0; j < 5; j++) {
+            std::cout << blocks[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+
+    std::cout << std::endl << "---------------" << std::endl;
     std::bitset<8> letters[5];
     letters[0] = 66;
     letters[1] = 114;
@@ -53,6 +68,7 @@ int main() {
     lotsofletters = lotsofletters.to_ulong() + letters[4].to_ulong();
 
     std::cout << lotsofletters << std::endl;
+    std::cout << lotsofletters.to_ullong() << std::endl;
 
     return 0;
 }
