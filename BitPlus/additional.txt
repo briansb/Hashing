@@ -1,0 +1,14 @@
+	// Loops through a bunch of cases
+	for (int i = 0; i<1000001; ++i) {
+		// number is the string variable argument to vBit....
+		//  in this case, it will be "d29" or something
+		string number = "d" + std::to_string(i);
+		vBit x = vBit(number);
+		cout << x.dtext() << endl;
+		// for decimal output, the format is d29
+		//   so, we can just use "number" plus end-of-line
+		result = TestOutput(number + "\n");
+		TestNames.push_back("Test " + number);
+		TestResults.push_back(result);
+	}
+
