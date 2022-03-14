@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "Output.h"
 
+/*  IMPORTANT:  Start building the reverse hash as soon as possible  */
 
 int main()
 {
@@ -19,13 +20,14 @@ int main()
     //std::string input_message = "They are deterministic";
     std::string input_message = "They";
     int number_of_blocks = 0;
-    std::bitset<BITS_PER_CHARACTER * CHARACTERS_PER_WORD> message[MAX_BLOCKS][WORDS_PER_BLOCK];
+    std::bitset<BITS_PER_WORD> message[MAX_BLOCKS][WORDS_PER_BLOCK];
 
 
     LoadMessageFromString(input_message, message, number_of_blocks);
 
     // need print function
-    OutputWordHex(message[0][0]);
+    std::cout << OutputWord_Binary(message, 0, 0) << std::endl;
+    std::cout << OutputWord_Hex(message, 0, 0) << std::endl;
 
 
 

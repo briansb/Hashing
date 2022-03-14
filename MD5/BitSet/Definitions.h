@@ -2,10 +2,8 @@
 #define DEFINITIONS_H
 
 
-
 #define BITS_PER_CHARACTER 8
-#define CHARACTERS_PER_WORD 4
-// #define BITS_PER_WORD 32
+#define BITS_PER_WORD 32
 #define WORDS_PER_BLOCK 16
 #define MAX_BLOCKS 100
 

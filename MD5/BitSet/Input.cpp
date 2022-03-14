@@ -2,12 +2,12 @@
 #include "Input.h"
 
 
-void LoadMessageFromString(std::string in, std::bitset<BITS_PER_CHARACTER * CHARACTERS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BLOCK], int &n) {
+void LoadMessageFromString(std::string in, std::bitset<BITS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BLOCK], int &n) {
 	
 
-	int shift_amount = 24;
-	std::bitset< BITS_PER_CHARACTER * CHARACTERS_PER_WORD> single_entry;
-	for (int i = 0; i < in.length(); i++) {
+	int shift_amount = BITS_PER_WORD - BITS_PER_CHARACTER;
+	std::bitset< BITS_PER_WORD> single_entry;
+	for (size_t i = 0; i < in.length(); i++) {
 
 		
 
@@ -20,4 +20,6 @@ void LoadMessageFromString(std::string in, std::bitset<BITS_PER_CHARACTER * CHAR
 
 	}
 
+	n = 1;
+	return;
 }

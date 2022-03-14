@@ -1,16 +1,19 @@
 
-main : main.o input_output.o
-		g++ -g -std=c++11 -Wall -Wextra -Werror -o main main.o input_output.o -I.
+BitSet : BitSet.o Input.o Output.o
+		g++ -g -std=c++11 -Wall -Wextra -Werror -o BitSet BitSet.o Input.o Output.o -I.
 
-main.o : main.cpp input_output.hh
-		g++ -g -c -std=c++11 -Wall -Wextra -Werror main.cpp -I.
+BitSet.o : BitSet.cpp Input.h Output.h
+		g++ -g -c -std=c++11 -Wall -Wextra -Werror BitSet.cpp -I.
 
-input_output.o : input_output.cpp input_output.hh definitions.hh
-		g++ -g -c -std=c++11 -Wall -Wextra -Werror input_output.cpp -I.
+Input.o : Input.cpp Input.h Definitions.h
+		g++ -g -c -std=c++11 -Wall -Wextra -Werror Input.cpp -I.
 
+Output.o : Output.cpp Output.h Definitions.h
+		g++ -g -c -std=c++11 -Wall -Wextra -Werror Output.cpp -I.
 
 
 zap :
-		rm main
-		rm main.o
-		rm input_output.o
+		rm BitSet
+		rm BitSet.o
+		rm Input.o
+		rm Output.o
