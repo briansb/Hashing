@@ -16,20 +16,21 @@
 
 int main()
 {
-    
-    //std::string input_message = "They are deterministic";
-    std::string input_message = "They";
+    std::string input_message = "They are deterministic";
+    //std::string input_message = "They";
     int number_of_blocks = 0;
     std::bitset<BITS_PER_WORD> message[MAX_BLOCKS][WORDS_PER_BLOCK];
-
 
     LoadMessageFromString(input_message, message, number_of_blocks);
 
     // need print function
-    std::cout << OutputWord_Binary(message, 0, 0) << std::endl;
-    std::cout << OutputWord_Hex(message, 0, 0) << std::endl;
-
-
-
+    for (int i = 0; i < number_of_blocks; i++) {
+        for (int j = 0; j < WORDS_PER_BLOCK; j++) {
+            std::cout << "Word " << std::setfill ('0') << std::setw(2) << j << " - ";
+            std::cout << OutputWord_Binary(message, i, j) << " -> ";
+            std::cout << OutputWord_Hex(message, i, j) << std::endl;
+        }
+    }
+    
     return 0;
 }
