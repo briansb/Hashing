@@ -11,6 +11,7 @@
 
 #include "Input.h"
 #include "Output.h"
+#include "Utilities.h"
 
 /*  IMPORTANT:  Start building the reverse hash as soon as possible  */
 
@@ -20,12 +21,18 @@ int main()
     std::bitset<BITS_PER_WORD> message[MAX_BLOCKS][WORDS_PER_BLOCK];
 
     // Get message from source code and load blocks
-    //std::string input_message = "They are deterministic";
     //std::string input_message = "They";
-    std::string input_message = "They are deterministic.  They are non-deterministic.  They are ee";
+    std::string input_message = "They are deterministic";
+    //std::string input_message = "They are deterministic.  They are non-deterministic.  Ab";
     LoadMessageFromString(input_message, message, number_of_blocks);
 
+    // Load shift amounts
+    int *p;
+    p = LoadShiftAmounts();
+    std::cout << "Third value = " << p[2] << std::endl;
 
+
+ 
 
     // need print function
     for (int i = 0; i < number_of_blocks; i++) {
