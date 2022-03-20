@@ -4,7 +4,7 @@
 #include <iostream>
 #include <bitset> 
 
-#include "Definitions.h"
+#include "definitions.h"
 
 void LoadMessageFromString(std::string in, std::bitset<BITS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BLOCK], int &n);
 

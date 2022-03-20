@@ -1,6 +1,16 @@
 
 #include "Output.h"
 
+void PrintBlock(int n, std::bitset<BITS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BLOCK]) {
+
+		std::cout << "Block " << n << ":" << std::endl;
+		for (int j = 0; j < WORDS_PER_BLOCK; j++) {
+			std::cout << "Word " << std::setfill('0') << std::setw(2) << j << " - ";
+			std::cout << OutputWord_Binary(m, n, j) << " -> ";
+			std::cout << OutputWord_Hex(m, n, j) << std::endl;
+		}
+		std::cout << std::endl;
+}
 
 std::string OutputWord_Binary(std::bitset<BITS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BLOCK], int block, int word) {
 	// add space between each btye (if BITS_PER_WORD is multiple of 8)
@@ -28,6 +38,7 @@ std::string OutputWord_Hex(std::bitset<BITS_PER_WORD> m[MAX_BLOCKS][WORDS_PER_BL
 		return m[block][word].to_string();
 	}
 }
+
 
 std::string ByteToHex(std::string byte_string) {
 

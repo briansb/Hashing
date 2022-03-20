@@ -3,6 +3,7 @@
 
 
 int *LoadShiftAmounts();
+unsigned long* LoadConstants();
 
 
 
