@@ -1,7 +1,0 @@
-http://www.metamorphosite.com/one-way-hash-encryption-sha1-data-software
-
-https://en.wikipedia.org/wiki/SHA-1
-
-https://indepth.dev/the-simple-math-behind-decimal-binary-conversion-algorithms/
-
-
