@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
  // Constants are the integer part of the sines of integers (in radians) * 2^32.
 const uint32_t k[64] = {
@@ -35,6 +39,8 @@ const uint32_t r[] = { 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 2
 
 // leftrotate function definition
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
+
+std::string IntToHex(uint32_t i);
 
 void to_bytes(uint32_t val, uint8_t* bytes)
 {
@@ -69,6 +75,10 @@ void md5(const uint8_t* initial_msg, size_t initial_len, uint8_t* digest) {
     h1 = 0xefcdab89;
     h2 = 0x98badcfe;
     h3 = 0x10325476;
+
+    std::cout << IntToHex(h3) << std::endl;
+
+    
 
     //Pre-processing:
     //append "1" bit to message    
@@ -123,6 +133,7 @@ void md5(const uint8_t* initial_msg, size_t initial_len, uint8_t* digest) {
                 g = (7 * i) % 16;
             }
 
+
             temp = d;
             d = c;
             c = b;
@@ -176,4 +187,11 @@ int main(int argc, char** argv) {
     puts("");
 
     return 0;
+}
+
+std::string IntToHex(uint32_t i)
+{
+  std::stringstream stream;
+  stream << std::setw(1) << std::hex << i;
+  return stream.str();
 }

@@ -1,0 +1,13 @@
+1.  55 characters is the longest message that can be hashed in one transform.
+    55 characters (bytes) for message, one byte for the trailing 1, and 8 bytes
+    (two 32-bit words) for the original message length...55 + 1 + 8 = 64 bytes = 512 bits
+
+2.  For determining sizes and limits...
+	    std::cout << "Maximum size of message_block = " << message_block.max_size() << " bytes" << std::endl;
+	    std::cout << "Maximum size of uint32 = " << std::numeric_limits<unsigned long int>::max() << std::endl;
+	    std::cout << "Maximum size of uint64 = " << std::numeric_limits<unsigned long long>::max() << std::endl;
+	    std::cout << "Size of unsigned long int = " << sizeof(unsigned long int) << " bytes" << std::endl;
+	    std::cout << "Size of uint32 = " << sizeof(uint32) << " bytes" << std::endl;
+	    std::cout << "Size of unsigned long long = " << sizeof(unsigned long long) << " bytes" << std::endl;
+	    std::cout << "Size of uint64 = " << sizeof(uint64) << " bytes" << std::endl;
+

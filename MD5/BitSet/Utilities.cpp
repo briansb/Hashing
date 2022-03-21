@@ -28,3 +28,7 @@ unsigned long* LoadConstants() {
                                         0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391 };
     return constant;
 }
+
+std::bitset<BITS_PER_WORD> LeftRotate(std::bitset<BITS_PER_WORD> b, int n) {
+    return b << n | b >> (BITS_PER_WORD - n);
+}
