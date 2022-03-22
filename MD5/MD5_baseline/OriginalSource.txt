@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Simple MD5 implementation
  *
  * Compile with: gcc -o md5 md5.c
@@ -159,10 +159,12 @@ int main(int argc, char **argv) {
     msg = argv[1];
  
     len = strlen(msg);
-   
-    //  main routine
-    md5((uint8_t*)msg, len, result);
-
+ 
+    // benchmark
+    for (i = 0; i < 1000000; i++) {
+        md5((uint8_t*)msg, len, result);
+    }
+ 
     // display result
     for (i = 0; i < 16; i++)
         printf("%2.2x", result[i]);
