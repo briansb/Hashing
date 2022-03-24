@@ -7,7 +7,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
- 
+
+// bsb
+#include <bitset>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+
 // Constants are the integer part of the sines of integers (in radians) * 2^32.
 const uint32_t k[64] = {
 0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee ,
@@ -52,6 +58,13 @@ uint32_t to_int32(const uint8_t *bytes)
         | ((uint32_t) bytes[3] << 24);
 }
  
+// bsb
+std::string OutputHex(uint32_t w) {
+    std::stringstream stream;
+    stream << std::setfill('0') << std::setw(8) << std::hex << w;
+    return stream.str();
+}
+
 void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
  
     // These vars will contain the hash
@@ -80,6 +93,7 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
  
     msg = (uint8_t*)malloc(new_len + 8);
     memcpy(msg, initial_msg, initial_len);
+
     msg[initial_len] = 0x80; // append the "1" bit; most significant bit is "first"
     for (offset = initial_len + 1; offset < new_len; offset++)
         msg[offset] = 0; // append "0" bits
@@ -89,13 +103,18 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
     // initial_len>>29 == initial_len*8>>32, but avoids overflow.
     to_bytes(initial_len>>29, msg + new_len + 4);
  
+
     // Process the message in successive 512-bit chunks:
     //for each 512-bit chunk of message:
     for(offset=0; offset<new_len; offset += (512/8)) {
  
         // break chunk into sixteen 32-bit words w[j], 0 ≤ j ≤ 15
-        for (i = 0; i < 16; i++)
+        for (i = 0; i < 16; i++) {
             w[i] = to_int32(msg + offset + i*4);
+            // bsb
+            std::cout << "Word " << std::setw(2) << i << ":  " << OutputHex(w[i]) << std::endl;
+        }
+        std::cout << std::endl;
  
         // Initialize hash value for this chunk:
         a = h0;
@@ -162,6 +181,9 @@ int main(int argc, char **argv) {
    
     //  main routine
     md5((uint8_t*)msg, len, result);
+
+    // bsb
+    std::cout << std::endl;
 
     // display result
     for (i = 0; i < 16; i++)
