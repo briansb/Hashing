@@ -111,8 +111,11 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
         // break chunk into sixteen 32-bit words w[j], 0 ≤ j ≤ 15
         for (i = 0; i < 16; i++) {
             w[i] = to_int32(msg + offset + i*4);
-            // bsb
-            std::cout << "Word " << std::setw(2) << i << ":  " << OutputHex(w[i]) << std::endl;
+        }
+
+        std::cout << "Block " << offset << std::endl;
+        for (int j = 0; j < 16; j++) {
+            std::cout << OutputHex(w[j]) << std::endl;
         }
         std::cout << std::endl;
  
@@ -139,11 +142,19 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
                 g = (7*i) % 16;
             }
  
+            
+            //std::cout << "Top - i =" << i << " " << OutputHex(a) << " - " << OutputHex(b) << " - " << OutputHex(c) << " - " << OutputHex(d) << " - " << OutputHex(f) << std::endl;
             temp = d;
             d = c;
             c = b;
             b = b + LEFTROTATE((a + f + k[i] + w[g]), r[i]);
+            //std::cout << "Rotating left " << a + f + k[i] + w[g] << " by " << r[i] << " and got " << LEFTROTATE((a + f + k[i] + w[g]), r[i]) << std::endl;
             a = temp;
+            //std::cout << "End - i =" << i << " " << OutputHex(a) << " - " << OutputHex(b) << " - " << OutputHex(c) << " - " << OutputHex(d) << " - " << OutputHex(f) << std::endl;
+            //std::cout << std::endl;
+
+            // bsb
+            //std::cout << OutputHex(b) << std::endl;
  
         }
  
@@ -157,7 +168,9 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
  
     // cleanup
     free(msg);
- 
+    
+    std::cout << OutputHex(h0) << " - " << OutputHex(h1) << " - " << OutputHex(h2) << " - " << OutputHex(h3) << std::endl;
+    
     //var char digest[16] := h0 append h1 append h2 append h3 //(Output is in little-endian)
     to_bytes(h0, digest);
     to_bytes(h1, digest + 4);
