@@ -120,6 +120,21 @@ int main()
  
     std::cout << OutputHex(a0) << " " << OutputHex(b0) << " " << OutputHex(c0) << " " << OutputHex(d0) << std::endl;
 
+    uint32_t a00 = ToLittleEndian(a0);
+    std::cout << OutputHex(a00) << std::endl;
+
+    uint8_t digest[16];
+
+    digest[0] = (uint8_t) a00;
+    digest[1] = (uint8_t)(a00 >> 8);
+    digest[2] = (uint8_t)(a00 >> 16);
+    digest[3] = (uint8_t)(a00 >> 24);
+
+    std::cout << OutputHex(digest[0]) << std::endl;
+    std::cout << OutputHex(digest[1]) << std::endl;
+    std::cout << OutputHex(digest[2]) << std::endl;
+    std::cout << OutputHex(digest[3]) << std::endl;
+
     return 0;
 }
 
