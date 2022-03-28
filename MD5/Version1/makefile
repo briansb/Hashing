@@ -1,8 +1,8 @@
 
-Version1 : Version1.o Input.o Output.o
-		g++ -g -std=c++11 -Wall -Wextra -Werror -o Version1 Version1.o Input.o Output.o -I.
+Version1 : Version1.o Input.o Output.o Utilities.o
+		g++ -g -std=c++11 -Wall -Wextra -Werror -o Version1 Version1.o Input.o Output.o Utilities.o -I.
 
-Version1.o : Version1.cpp Input.h Output.h
+Version1.o : Version1.cpp Input.h Output.h Utilities.h
 		g++ -g -c -std=c++11 -Wall -Wextra -Werror Version1.cpp -I.
 
 Input.o : Input.cpp Input.h 
@@ -10,6 +10,9 @@ Input.o : Input.cpp Input.h
 
 Output.o : Output.cpp Output.h
 		g++ -g -c -std=c++11 -Wall -Wextra -Werror Output.cpp -I.
+
+Utilities.o : Utilities.cpp Utilities.h
+		g++ -g -c -std=c++11 -Wall -Wextra -Werror Utilities.cpp -I.
 
 #Utilities.o : Utilities.cpp Utilities.h Definitions.h
 #		g++ -g -c -std=c++11 -Wall -Wextra -Werror Utilities.cpp -I.

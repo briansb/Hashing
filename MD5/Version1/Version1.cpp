@@ -48,6 +48,7 @@ int main()
  
     std::string message_string = "Brian Birmingham";
     //std::string message_string = "This is a test of the MD5 hashing algorithm.  I will be using it to become rich.";
+    //std::string message_string = "GenesisIG will read the configuration.ini file at launch; that determines the configuration. After that, we communicate with it via CIGI messages when running the sim. Changing the configuration file would produce a different image when the renderer is done loading because part of the configuration is providing an initial pose.  The simulated camera plugin and the image processor plugin (admittedly not very distinctive names) are similar, but they serve different purposes. Broadly, you can think of the simulated camera plugin as our SWIL plugin, while the IPP is our HWIL plugin. They both distort images created by Genesis, but the key difference is that the IPP displays two windows: one undistorted which is what Genesis created, and one distorted. We can display the distorted window live during the sim so that our camera can take pictures of it on the monitor.  FBO stands for either frame buffer output or frame buffer object. Frame buffer refers to the pixel data, or the image itself. ExternalFboProcessor.cpp (Image Processor Plugin) and ExternalFboCamera.cpp (Simulated Camera Plugin), are the bulk of the source code for their respective plugins.";
     std::vector<uint32_t> words;
     LoadStringMessageIntoMessageVector(message_string, words);
     // for (size_t i = 0; i < words.size(); i++) {
@@ -105,7 +106,7 @@ int main()
             C = B;
             B = B + RotateLeft(F, s[i]);
             //std::cout << "Rotating left " << F << " by " << s[i] << " and got " << RotateLeft(F, s[i]) << std::endl;
-            //std::cout << "End - i =" << i << " " << OutputHex(A) << " - " << OutputHex(B) << " - " << OutputHex(C) << " - " << OutputHex(D) << " - " << OutputHex(F) << std::endl;
+            //std::cout << "End - i =" <<i << " " << OutputHex(A) << " - " << OutputHex(B) << " - " << OutputHex(C) << " - " << OutputHex(D) << " - " << OutputHex(F) << std::endl;
             //std::cout << std::endl;
 
             //std::cout << OutputHex(B) << std::endl;
@@ -118,22 +119,28 @@ int main()
 
     }  //  end loop over blocks
  
-    std::cout << OutputHex(a0) << " " << OutputHex(b0) << " " << OutputHex(c0) << " " << OutputHex(d0) << std::endl;
-
-    uint32_t a00 = ToLittleEndian(a0);
-    std::cout << OutputHex(a00) << std::endl;
+    // a0 - d0 are in big endian
+    //std::cout << "Big Endian = " << OutputHex(a0) << " " << OutputHex(b0) << " " << OutputHex(c0) << " " << OutputHex(d0) << std::endl;
 
     uint8_t digest[16];
+    WordToBytes(a0, digest);
+    WordToBytes(b0, digest + 4);
+    WordToBytes(c0, digest + 8);
+    WordToBytes(d0, digest + 12);
 
-    digest[0] = (uint8_t) a00;
-    digest[1] = (uint8_t)(a00 >> 8);
-    digest[2] = (uint8_t)(a00 >> 16);
-    digest[3] = (uint8_t)(a00 >> 24);
+    std::cout << "Hash(" << message_string << ") = ";
+    for (int i = 0; i < 16; i++) {
+        printf("%2.2x", digest[i]);
+    }
+    std::cout << std::endl;
 
-    std::cout << OutputHex(digest[0]) << std::endl;
-    std::cout << OutputHex(digest[1]) << std::endl;
-    std::cout << OutputHex(digest[2]) << std::endl;
-    std::cout << OutputHex(digest[3]) << std::endl;
+    std::cout << OutputBinary(a0) << std::endl;
+    std::cout << OutputHex(a0) << std::endl;
+
+    std::cout << OutputBinary(a0, 1) << std::endl;
+    std::cout << OutputBinary(a0, 3) << std::endl;
+    std::cout << OutputHex(a0, 1) << std::endl;
+    std::cout << OutputHex(a0, 3) << std::endl;
 
     return 0;
 }

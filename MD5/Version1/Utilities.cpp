@@ -1,21 +1,15 @@
 
 #include "Utilities.h"
-#include <stdint.h>
+
 
 unsigned int RotateLeft(unsigned int b, int n) {
     return (b << n) | (b >> (32 - n));
 }
 
-unsigned int ToLittleEndian(unsigned int a) {
-    
-    unsigned int w, x, y, z;
-
-    w = a << 24;
-    x = ((a >> 8) << 24) >> 8;
-    y = ((a << 8) >> 24) << 8;
-    z = a >> 24;
-
-
-
-    return w | x | y | z;
+void WordToBytes(uint32_t word, uint8_t *byte_array) {
+    byte_array[0] = (uint8_t) word;
+    byte_array[1] = (uint8_t) (word >> 8);
+    byte_array[2] = (uint8_t) (word >> 16);
+    byte_array[3] = (uint8_t) (word >> 24);
+    return;
 }

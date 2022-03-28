@@ -8,8 +8,12 @@
 
 
 // can output a word, block, or message
-std::string OutputHex(uint32_t w);
 std::string OutputBinary(uint32_t w);
+std::string OutputHex(uint32_t w);
+
+// overload to print individual bytes - byte 0 is least significant
+std::string OutputBinary(uint32_t w, int byte_number);
+std::string OutputHex(uint32_t w, int byte_number);
 
 
 
