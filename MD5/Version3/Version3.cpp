@@ -14,6 +14,9 @@
 /*     Little Endian                   */
 /***************************************/
 
+
+void GetMD5Hash(std::vector<uint32_t> words, uint8_t digest[]) {
+
 // Initialize variables:
 uint32_t a0 = 0x67452301;
 uint32_t b0 = 0xefcdab89;
@@ -43,37 +46,24 @@ int s[64] = { 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
                   4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
                   6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21 };
 
-int main()
-{
- 
-    std::string message_string = "Brian Birmingham4";
-    //std::string message_string = "This is a test of the MD5 hashing algorithm.  I will be using it to become rich.";
-    //std::string message_string = "GenesisIG will read the configuration.ini file at launch; that determines the configuration. After that, we communicate with it via CIGI messages when running the sim. Changing the configuration file would produce a different image when the renderer is done loading because part of the configuration is providing an initial pose.  The simulated camera plugin and the image processor plugin (admittedly not very distinctive names) are similar, but they serve different purposes. Broadly, you can think of the simulated camera plugin as our SWIL plugin, while the IPP is our HWIL plugin. They both distort images created by Genesis, but the key difference is that the IPP displays two windows: one undistorted which is what Genesis created, and one distorted. We can display the distorted window live during the sim so that our camera can take pictures of it on the monitor.  FBO stands for either frame buffer output or frame buffer object. Frame buffer refers to the pixel data, or the image itself. ExternalFboProcessor.cpp (Image Processor Plugin) and ExternalFboCamera.cpp (Simulated Camera Plugin), are the bulk of the source code for their respective plugins.";
-    std::vector<uint32_t> words;
-    LoadStringMessageIntoMessageVector(message_string, words);
+
+
     
-    uint32_t M[16];  // words for hashing
-    // words is a vector of size = integer multiple of 16
+    uint32_t M[16];
     for (size_t block = 0; block < (words.size() / 16); block++) {
         
         //  build array M[] of the first 16 words
         for (int i = 0; i < 16; i++) {
             M[i] = words[block * 16 + i];
         }
-        
-        // std::cout << "Block " << block << std::endl;
-        // for (int j = 0; j < 16; j++) {
-        //     std::cout << OutputHex(M[j]) << std::endl;
-        // }
-        // std::cout << std::endl;
-
-
+    
         uint32_t A = a0;
         uint32_t B = b0;
         uint32_t C = c0;
         uint32_t D = d0;
 
-        for (int i = 0; i < 64; i++) {
+        int main_loop = 64;  // should be 64
+        for (int i = 0; i < main_loop; i++) {
             uint32_t F, g;
             if ((i >= 0) and (i <= 15)) {
                 F = (B & C) | ((~B) & D);
@@ -105,21 +95,55 @@ int main()
         d0 = d0 + D;
 
     }  //  end loop over blocks
- 
-    // a0 - d0 are in big endian
-    //std::cout << "Big Endian = " << OutputHex(a0) << " " << OutputHex(b0) << " " << OutputHex(c0) << " " << OutputHex(d0) << std::endl;
-
-    uint8_t digest[16];
+    
     WordToBytes(a0, digest);
     WordToBytes(b0, digest + 4);
     WordToBytes(c0, digest + 8);
     WordToBytes(d0, digest + 12);
 
-    std::cout << "Hash(" << message_string << ") = ";
-    for (int i = 0; i < 16; i++) {
-        printf("%2.2x", digest[i]);
+}
+
+
+int main()
+{
+    std::string message_base = "Brian Birmingham";
+    std::string message_string = message_base;
+    int counter = 0;
+    std::vector<uint32_t> words;
+    uint8_t digest[16];
+    bool keep_running = true;
+    while (keep_running) {
+        words.clear();
+        LoadStringMessageIntoMessageVector(message_string, words);
+
+        // get hash
+        GetMD5Hash(words, digest);
+
+        std::cout << "Hash(" << message_string << ") = ";
+        for (int i = 0; i < 16; i++) {
+            printf("%2.2x", digest[i]);
+        }
+        std::cout << std::endl;
+
+        // test hash
+        // First digit 0 -> 0x0f
+        // Second digit 0 -> 0x00
+        // Brian Birmingham2191 generates three leading zeros
+        if (digest[0] <= 0x00 and digest[1] <=0x0f) {
+            // found it
+            std::cout << "Found it!" << std::endl;
+            keep_running = false;
+        } else {
+            // increment message
+            // not the best way to increment
+            counter++;
+            message_string = message_base + std::to_string(counter);
+        }
     }
-    std::cout << std::endl;
+    
+    
+    
+    
 
     return 0;
 }
