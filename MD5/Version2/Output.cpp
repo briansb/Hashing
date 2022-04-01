@@ -1,5 +1,6 @@
 
 #include "Output.h"
+#include <cstdio>
 
 std::string OutputHex(uint32_t w) {
     std::stringstream stream;

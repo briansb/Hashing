@@ -46,7 +46,7 @@ int s[64] = { 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
 int main()
 {
  
-    std::string message_string = "Brian Birmingham4";
+    std::string message_string = "Brian Birmingham4";  // hash = 0f1b2acb2988f0af65b6f1153be7e273
     //std::string message_string = "This is a test of the MD5 hashing algorithm.  I will be using it to become rich.";
     //std::string message_string = "GenesisIG will read the configuration.ini file at launch; that determines the configuration. After that, we communicate with it via CIGI messages when running the sim. Changing the configuration file would produce a different image when the renderer is done loading because part of the configuration is providing an initial pose.  The simulated camera plugin and the image processor plugin (admittedly not very distinctive names) are similar, but they serve different purposes. Broadly, you can think of the simulated camera plugin as our SWIL plugin, while the IPP is our HWIL plugin. They both distort images created by Genesis, but the key difference is that the IPP displays two windows: one undistorted which is what Genesis created, and one distorted. We can display the distorted window live during the sim so that our camera can take pictures of it on the monitor.  FBO stands for either frame buffer output or frame buffer object. Frame buffer refers to the pixel data, or the image itself. ExternalFboProcessor.cpp (Image Processor Plugin) and ExternalFboCamera.cpp (Simulated Camera Plugin), are the bulk of the source code for their respective plugins.";
     std::vector<uint32_t> words;
