@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 
 #include "Input.h"
@@ -7,20 +6,6 @@
 #include "Utilities.h"
 #include "Routine.h"
 
-
-
-/* current version - note smaller message and smaller digest
-Message(Brian0) = 427269616e30
-   Hash(Brian0) = 92261027c3d5ce30
-Message(Brian1) = 427269616e31
-   Hash(Brian1) = c0abd5e9c7582d28
-Message(Brian2) = 427269616e32
-   Hash(Brian2) = 70f4f8074289a5bf
-Message(Brian3) = 427269616e33
-   Hash(Brian3) = 9bd1fc2654a7b5ec
-Message(Brian4) = 427269616e34
-   Hash(Brian4) = 9b0b753d4c0ed222
-*/
 int main()
 {
     std::string message_base = "Brian";
